@@ -5,13 +5,13 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
      }
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('karo-dockerhub')
-    APP_NAME = "ooghenekaro/myflaskapp"
+    DOCKERHUB_CREDENTIALS = credentials('Dockerhub-pat2')
+    APP_NAME = "khingarthur/myflaskapp"
     }
     stages { 
         stage('SCM Checkout') {
             steps{
-           git branch: 'main', url: 'https://github.com/ooghenekaro/flask-app.git'
+           git branch: 'main', url: 'https://github.com/khingarthur/flask-app2.git'
             }
         }
 
