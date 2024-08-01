@@ -5,7 +5,7 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
      }
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('Dockerhub-pat2')
+    DOCKERHUB_PAT = credentials('Dockerhub-pat2')
     APP_NAME = "khingarthur/myflaskapp"
     }
     stages { 
@@ -22,8 +22,10 @@ pipeline {
         }
         stage('login to dockerhub') {
             steps{
-               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
+              withCredentials([string(credentialsId: "Dockerhub-pat2", variable: "DOCKERHUB_PAT")]) {
+            sh "echo $DOCKERHUB_PAT | docker login -u khingarthur --password-stdin"      
+                }
+         }
         }
         stage('push image') {
             steps{
